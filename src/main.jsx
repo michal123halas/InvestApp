@@ -1,10 +1,12 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import Test from "./Script/test.jsx";
+import CurrencyA from "./Script/CurrencyA.jsx";
+import CurrencyB from "./Script/CurrencyB.jsx";
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <Test />
+    <CurrencyA />
+      <CurrencyB/>
   </React.StrictMode>,
 )
