@@ -50,7 +50,7 @@ useEffect(()=>{
             {/*<h1>{currencyOwned}</h1>*/}
             <select onChange={event => calculatorCurrencyRight(event.target.value)}>
                 {data && data[0].rates.map((item ,index)=>(
-                    <option key={index} value={`${item.mid}`} >{`${item.code}`}</option>
+                    <option key={index} value={`${item.mid}`} >{`${item.currency}`}</option>
                 ))}
             </select>
             </div>
@@ -65,7 +65,7 @@ useEffect(()=>{
             {/*<h1>{currencyBay}</h1>*/}
             <select onChange={event => calculatorCurrencyLeft(event.target.value)}>
                 {data && data[0].rates.map((item ,index)=>(
-                    <option key={index} value={`${item.mid}`} >{`${item.code}`}</option>
+                    <option key={index} value={`${item.mid}`} >{`${item.currency}`}</option>
                 ))}
             </select>
             </div>
