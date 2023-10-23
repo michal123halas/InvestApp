@@ -2,8 +2,9 @@ import React, {useEffect, useState} from 'react';
 
 
 
-const CurrencyA = () => {
-    const [data , setData] = useState(null)
+const CurrencyAandB = () => {
+    const [dataA , setDataA] = useState(null)
+    const [dataB , setDataB] = useState(null)
     const [currencyOwned, setCurrencyOwned] = useState('')
     const [currencyBay, setCurrencyBay] = useState('')
     const [currencyAmount, setCurrencyAmount] = useState('')
@@ -25,32 +26,37 @@ const CurrencyA = () => {
 useEffect(()=>{
     const fetchData =async()=>{
         try {
-            const table ='A';
-            const response = await fetch(`http://api.nbp.pl/api/exchangerates/tables/${table}/`);
+            const response = await fetch(`http://api.nbp.pl/api/exchangerates/tables/A/`);
             const responseData = await response.json();
-            setData(responseData);
-            console.log(data);
+            setDataA(responseData);
+            console.log(dataA);
+        } catch (error){
+            console.log('this is error',error);
+        }
+    }
+    const fetchDataB =async()=>{
+        try {
+            const response = await fetch(`http://api.nbp.pl/api/exchangerates/tables/B/`);
+            const responseData = await response.json();
+            setDataB(responseData);
+            console.log(dataB);
         } catch (error){
             console.log('this is error',error);
         }
     }
     fetchData()
+    fetchDataB()
 },[])
 
     return (
         <div style={{display:"flex",justifyContent:'space-around'}}>
-            {/*{data && <pre>{JSON.stringify(data ,null, 2)}</pre>}*/}
-            {/*<ul>*/}
-            {/*    {data && data[0].rates.map((item, index)=>(<li key={index}>*/}
-            {/*        <h3>{`${item.currency}`}</h3>*/}
-            {/*        <p>{`${item.mid}`}</p>*/}
-            {/*    </li>))}*/}
-            {/*</ul>*/}
             <div>
-            {/*<h1>{currencyOwned}</h1>*/}
             <select onChange={event => calculatorCurrencyRight(event.target.value)}>
-                {data && data[0].rates.map((item ,index)=>(
+                {dataA && dataA[0].rates.map((item ,index)=>(
                     <option key={index} value={`${item.mid}`} >{`${item.currency}`}</option>
+                ))}
+                {dataB && dataB[0].rates.map((item,index)=>(
+                    <option key={index} value={`${item.mid}`}>{`${item.currency}`}</option>
                 ))}
             </select>
             </div>
@@ -61,11 +67,12 @@ useEffect(()=>{
             <h1 style={{color:'red'}}>{(currencyOwned/currencyBay)*currencyAmount}</h1>
             </div>
             <div>
-
-            {/*<h1>{currencyBay}</h1>*/}
             <select onChange={event => calculatorCurrencyLeft(event.target.value)}>
-                {data && data[0].rates.map((item ,index)=>(
+                {dataA && dataA[0].rates.map((item ,index)=>(
                     <option key={index} value={`${item.mid}`} >{`${item.currency}`}</option>
+                ))}
+                {dataB && dataB[0].rates.map((item,index)=>(
+                    <option key={index} value={`${item.mid}`}>{`${item.currency}`}</option>
                 ))}
             </select>
             </div>
@@ -76,4 +83,4 @@ useEffect(()=>{
     );
 };
 
-export default CurrencyA;
+export default CurrencyAandB;
